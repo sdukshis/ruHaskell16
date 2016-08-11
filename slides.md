@@ -214,7 +214,7 @@ putStrLn
 <!-- .element: class="fragment"-->
 
 
-### Comparsion
+### Comparison
 
 * Haskell type classes:
     * Generic <!-- .element: class="fragment"-->
