@@ -1,6 +1,11 @@
 ## C++ concepts and Haskell type classes
 
-Pavel Filonov (pavel.filonov@kaspersky.com)
+Pavel.Filonov@kaspersky.com
+
+Note:
+- Say "Hello"
+- Survey
+- Short story about this talk
 
 
 
@@ -36,6 +41,9 @@ int main() {
 }
 ``` 
 <!-- .element: class="fragment" -->
+
+Note:
+- Ask listeners for problem?
 
 
 
@@ -273,6 +281,8 @@ putStrLn
        (Person (unpackCString# "John"#) (unpackCString# "Smith"#)))
 ```
 <!-- .element: class="fragment"-->
+Note:
+- dump-simpl - is cool!
 
 
 
@@ -316,6 +326,9 @@ string bold(const Stringable<T>& dict, const T& a) {
 cout << bold(dStringable, Person{"John", "Smith"}) << endl;
 ```
 <!-- .element: class="fragment"-->
+
+Note:
+- you can't simple express multiple constraints with abstract class
 
 
 
