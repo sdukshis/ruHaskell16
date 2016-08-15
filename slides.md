@@ -15,6 +15,7 @@ Pavel Filonov (pavel.filonov@kaspersky.com)
 3. Docendo discimus (by teaching, we learn) <!-- .element: class="fragment" -->
 
 
+
 ## The problem with C++ templates
 
 The programmer has a set of problems and he decide to use C++
@@ -59,6 +60,7 @@ In file included from <span style="font-weight: bold">/usr/include/c++/6/bits/st
      <span style="font-weight: bold; color: #00aaaa">operator</span>&lt;(const pair&lt;_T1, _T2&gt;&amp; __x, const pair&lt;_T1, _T2&gt;&amp; __y)
      <span style="font-weight: bold; color: #00aaaa">^~~~~~~~</span>
 </pre>
+
 
 
                         <pre style="font-size: large; white-space: pre-wrap; word-wrap: break-word; ">
