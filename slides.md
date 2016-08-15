@@ -3,6 +3,7 @@
 Pavel Filonov (pavel.filonov@kaspersky.com)
 
 
+
 ## Motivation
 
 1. GCC 6.1 Released with C++ concepts support (-fconcepts) <!-- .element: class="fragment" -->
@@ -12,7 +13,6 @@ Pavel Filonov (pavel.filonov@kaspersky.com)
  * A Comparison of C++ Concepts and Haskell Type Classes <!-- .element: class="fragment" -->
  * Concepts for C++1y: The Challenge <!-- .element: class="fragment" -->
 3. Docendo discimus (by teaching, we learn) <!-- .element: class="fragment" -->
-
 
 
 ## The problem with C++ templates
@@ -34,6 +34,7 @@ int main() {
 }
 ``` 
 <!-- .element: class="fragment" -->
+
 
 
 ## this is ~~spart~~a problem!
@@ -89,6 +90,7 @@ In file included from <span style="font-weight: bold">/usr/include/c++/6/bits/st
 </pre>
 
 
+
 ## SOS!
 
 <pre  style="font-size: large; white-space: pre-wrap; word-wrap: break-word; ">
@@ -123,6 +125,15 @@ class LessComparable a where
 
 
 
+### Polymorphism
+
+|             |   Static   |      Dynamic    |
+|:-----------:|:----------:|:---------------:|
+|  **C++**    |templates   |virtual functions|
+| **Haskell** | forall     | type classes    |
+
+
+
 ### Find the difference
 C++ style
 ```cpp
@@ -137,12 +148,55 @@ class Person {
     friend string to_string(const Person&);
 };
 // Algorithm
-string bold(Stringable s) {
+string bold(const Stringable& s) {
     return "<b>" + to_string(s) + "</b>";
 }
 // Instantiation
 cout << bold(Person{"John", "Smith"}) << endl;
 ```
+
+
+
+### Templates instantiation
+Code after concepts check
+
+```cpp
+// Modelling
+class Person {
+    //...
+    friend string to_string(const Person&);
+};
+// Algorithm
+string bold(const Person& s) {
+    return "<b>" + to_string(s) + "</b>";
+}
+// Instantiation
+cout << bold(Person{"John", "Smith"}) << endl;
+```
+
+
+
+### Try and see
+https://gcc.godbolt.org/
+
+g++-6.1 -S -fconcepts -O0 -fverbose-asm stringable.cpp | c++filt
+
+```
+std::__cxx11::basic_string<...> bold<Person>(Person const&):
+        push    rbp     
+        mov     rbp, rsp  
+        push    rbx     
+        sub     rsp, 88   
+        ; ...
+        call    to_string[abi:cxx11](Person const&)     
+        ; ...
+        mov     rax, QWORD PTR [rbp-88]   #, <retval>
+        add     rsp, 88   
+        pop     rbx       
+        pop     rbp       
+        ret
+```
+
 
 
 Haskell style
@@ -158,12 +212,13 @@ instance Stringable Person where
     toString p = take 1 (firstname p) ++ ". " ++ lastname p
  
 -- Algorithm
-bold :: (Stringable a) => a -> String
+bold :: Stringable a => a -> String
 bold a = "<b>" ++ toString a ++ "</b>"
 
 --Instantiation
 putStrLn $ bold $ Person "John" "Smith"
 ```
+
 
 
 ### Dictionary passing
@@ -185,6 +240,8 @@ bold dStringlable a = "<b>" ++ toString dStringlable a ++ "</b>"
 putStrLn $ bold dStringablePerson $ Person "John" "Smith"
 ```
 Type classes are a way to pass instance dictionaries implicitly
+<!-- .element: class="fragment"-->
+
 
 
 ### We need to go deeper
@@ -214,18 +271,20 @@ putStrLn
 <!-- .element: class="fragment"-->
 
 
+
 ### Comparison
 
-* Haskell type classes:
-    * Generic <!-- .element: class="fragment"-->
-    * Compile-time checks <!-- .element: class="fragment"-->
-    * Runtime polymorphism <!-- .element: class="fragment"-->
-* C++ concepts: <!-- .element: class="fragment"-->
-    * Generic <!-- .element: class="fragment"-->
-    * Compile-time checks <!-- .element: class="fragment"-->
-    * Function overloading (compile-time polymorphism) <!-- .element: class="fragment"-->
+* Haskell type classes: <!-- .element: class="fragment" data-fragment-index="1"-->
+    * Generic <!-- .element: class="fragment" data-fragment-index="1"-->
+    * Compile-time checks <!-- .element: class="fragment" data-fragment-index="1"-->
+    * Runtime polymorphism <!-- .element: class="fragment" data-fragment-index="1"-->
+* C++ concepts: <!-- .element: class="fragment" data-fragment-index="2" -->
+    * Generic <!-- .element: class="fragment" data-fragment-index="2"-->
+    * Compile-time checks <!-- .element: class="fragment" data-fragment-index="2"-->
+    * Function overloading (compile-time polymorphism) <!-- .element: class="fragment" data-fragment-index="2"-->
 
 What is the analogue in C++ for type classes? <!-- .element: class="fragment"-->
+
 
 
 ### C++ parametrized abstract class
@@ -270,6 +329,7 @@ cout << bold(dStringable, Person{"John", "Smith"}) << endl;
 <!-- .element: class="fragment"-->
 
 
+
 ### References
 1. ISO/IEC JTC1 SC22 WG21 N
 4377 IT -- Programming Languages — C++ Extensions for Concepts - [Paper](http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2015/n4377.pdf)
@@ -281,6 +341,7 @@ cout << bold(dStringable, Person{"John", "Smith"}) << endl;
 7. Miran Lipovača, Learn You a Haskell for Great Good! - [eBook](http://learnyouahaskell.com/)
 
 
+
 ### More references
 9. OOP vs Type classes - [Blogpost](https://wiki.haskell.org/OOP_vs_type_classes)
 10. Implementing, and Understanding Type Classes - [Blogpost](http://okmij.org/ftp/Computation/typeclass.html)
@@ -289,6 +350,7 @@ cout << bold(dStringable, Person{"John", "Smith"}) << endl;
 13. A comparison of C++ concepts and Haskell type classes, Jean-Philippe Bernardy and others - [Paper](http://citeseerx.ist.psu.edu/viewdoc/download?doi=10.1.1.566.8506&rep=rep1&type=pdf)
 14. Concepts for C++1y: The Challenge, B. Stroustrup - [Slides](http://www.cs.ox.ac.uk/ralf.hinze/WG2.8/28/slides/bjarne.pdf)
 16. Instances and Dictionaries, Jonathan Fischoff - [Blogpost](https://www.schoolofhaskell.com/user/jfischoff/instances-and-dictionaries)
+
 
 
 ## Thank you for your attention!

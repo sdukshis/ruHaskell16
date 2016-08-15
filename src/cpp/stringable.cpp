@@ -24,7 +24,7 @@ private:
     std::string lastname_;
 };
 // Algorithm
-std::string bold(Stringable s) {
+std::string bold(const Stringable& s) {
     return "<b>" + to_string(s) + "</b>";
 }
 
