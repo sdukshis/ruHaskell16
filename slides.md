@@ -14,7 +14,6 @@ Note:
 1. GCC 6.1 Released with C++ concept support (-fconcepts) <!-- .element: class="fragment" -->
 2. A lot of questions about difference between this two features <!-- .element: class="fragment" -->
  * How are C++ concepts different to Haskell type classes? <!-- .element: class="fragment" -->
- <!-- * Understanding C++ Concepts through Haskell Type Classes <!-- .element: class="fragment" --> -->
  * A Comparison of C++ Concepts and Haskell Type Classes <!-- .element: class="fragment" -->
  * Concepts for C++1y: The Challenge <!-- .element: class="fragment" -->
 3. Docendo discimus (by teaching, we learn) <!-- .element: class="fragment" -->
