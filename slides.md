@@ -24,7 +24,7 @@ Note:
 
 ## The problem with C++ templates
 
-The programmer had a set of problems and he decided to use C++
+The programmer has a set of problems and he decides to use C++
 
 ```cpp  
 class Problem {
@@ -170,7 +170,7 @@ cout << bold(Person{"John", "Smith"}) << endl;
 
 
 ### Templates instantiation
-Code after concepts check
+Code after concept check
 
 ```cpp
 // Modelling
@@ -301,7 +301,7 @@ What is the analogue in C++ for type classes? <!-- .element: class="fragment"-->
 
 
 
-### C++ parametrized abstract class
+### C++ parameterized abstract class
 ```cpp
 template<typename T> struct Stringable {
     virtual string to_string(const T&) const = 0;
@@ -342,7 +342,7 @@ Note:
     <!-- .element: class="fragment"-->
     * and different purpose
     <!-- .element: class="fragment"-->
-* Nearest analog to type classes in C++ is parametrized abstract classes
+* Nearest analogue to type classes in C++ is parameterized abstract classes
 <!-- .element: class="fragment"-->
 
 
