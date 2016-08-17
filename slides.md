@@ -12,7 +12,7 @@ Note:
 ## Motivation
 
 1. GCC 6.1 Released with C++ concepts support (-fconcepts) <!-- .element: class="fragment" -->
-2. A lot of questions about difference between this tow instruments <!-- .element: class="fragment" -->
+2. A lot of questions about difference between this two instruments <!-- .element: class="fragment" -->
  * How are C++ concepts different to Haskell type classes? (SO) <!-- .element: class="fragment" -->
  * Understanding C++ Concepts through Haskell Type Classes <!-- .element: class="fragment" -->
  * A Comparison of C++ Concepts and Haskell Type Classes <!-- .element: class="fragment" -->
@@ -24,7 +24,7 @@ Note:
 
 ## The problem with C++ templates
 
-The programmer has a set of problems and he decide to use C++
+The programmer had a set of problems and he decided to use C++
 
 ```cpp  
 class Problem {
@@ -126,7 +126,7 @@ concept bool LessComparable()
 ```
 <!-- .element: class="fragment" data-fragment-index="1" -->
 
-Hmm... I guess I saw his before in Haskell
+Hmm... I guess I saw this before in Haskell
 <!-- .element: class="fragment" data-fragment-index="2" -->
 
 ```haskell
